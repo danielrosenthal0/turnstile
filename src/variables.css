@@ -1,11 +1,17 @@
 @font-face {
   font-family: 'primary font';
-  src: url('./components/fonts/silkamono-regular-webfont.ttf');
+  src: url('./assets/fonts/SpaceMono-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'bold font';
+  src: url('./assets/fonts/SpaceMono-Bold.ttf');
 }
 
 :root {
   --primary-color: #a46bea;
   --primary-font: 'primary font';
+  --bold-font: 'bold font';
 }
 
 ::-webkit-scrollbar {

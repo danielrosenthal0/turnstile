@@ -1,11 +1,15 @@
-import styles from './App.module.css'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from "./pages/Home";
+
 
 function App() {
   return (
-   <div className={styles.content}>
-    <p className={styles.title}>Turnstile</p>
-    <p className={styles.subtitle}>Connecting producers, artists, and DJ's</p>
-  </div>
+   <Router>
+    <Routes>
+      <Route path='/' element={<Home/>} />
+    </Routes>
+   </Router>
   );
 }
 
