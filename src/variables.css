@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'primary font';
+  src: url('./components/fonts/Guminert.ttf');
+}
+
+:root {
+  --primary-color: #a46bea;
+  --primary-font: 'primary font';
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
