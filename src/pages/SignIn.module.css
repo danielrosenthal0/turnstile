@@ -1,0 +1,43 @@
+.authContainer {
+  display: flex;
+  flex: 1;
+  background-color: black;
+  color: white;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  transition: background-color 0.45s, color 0.45s;
+}
+
+.authContainer:hover {
+  background-color: white;
+  color: black;
+}
+
+.authTitle {
+  font-family: var(--bold-font);
+  font-weight: 600;
+  font-size: 36px;
+  margin: 24px;
+  padding: 24px;
+}
+
+.switchButton {
+  font-family: var(--primary-font);
+  font-size: 18px;
+  margin-top: 16px;
+  color: white;
+  transition: color 0.45s;
+}
+
+/* .switchButton:hover {
+  color: black;
+} */
+
+.authContainer:hover .switchButton {
+  color: black
+}
+
+a {
+  text-decoration: none;
+}

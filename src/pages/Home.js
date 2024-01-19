@@ -1,3 +1,5 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import styles from "./Home.module.css";
 
 const Home = () => {
@@ -15,13 +17,18 @@ const Home = () => {
       <div className={styles.areYou}>
         <h3>Are you...</h3>
         <div className={styles.circles}>
-          <div className={styles.circle}>
-            <p>Someone who wants to be noticed?</p>
-          </div>
+          <Link to="/sign-up">
+            <div className={styles.circle}>
+              <p>Someone who wants to be noticed?</p>
+            </div>
+          </Link>
+
           <h3>or...</h3>
-          <div className={styles.circle}>
-            <p>Looking for music to be submitted?</p>
-          </div>
+          <Link to="/sign-up">
+            <div className={styles.circle}>
+              <p>Looking for music to be submitted?</p>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
