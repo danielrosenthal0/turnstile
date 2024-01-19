@@ -1,12 +1,15 @@
-import React, { useState} from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState} from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import styles from './SignIn.module.css';
 import { signIn } from '../services/auth';
+import { AuthContext } from '../services/AuthContext';
 
 const SignIn = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
+
+  const { user, signIn } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +23,11 @@ const SignIn = () => {
     }
 
   }
+
+  if (user) {
+    return <Navigate to='/profile'/>
+  }
+  
   return (
     <div className={styles.authContainer}>
       <h1 className={styles.authTitle}>Sign In</h1>

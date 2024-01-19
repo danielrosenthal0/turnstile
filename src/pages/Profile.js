@@ -1,21 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getCurrentUser, signOut } from "../services/auth";
+import { AuthContext } from "../services/AuthContext";
 
 const Profile = () => {
-  const [user, setUser] = useState();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const user = await getCurrentUser();
-        setUser(user);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchUser();
-  }, []);
+  const { user, signOut } = useContext(AuthContext);
 
   return (
     <div>
