@@ -8,10 +8,12 @@ import SignIn from './pages/SignIn';
 import ConfirmSignUp from './pages/ConfirmSignUp';
 import Profile from './pages/Profile';
 import { AuthProvider } from './services/AuthContext';
+import RouteGuard from './RouteGuard';
 
 function App() {
   return (
     <AuthProvider>
+ 
       <Router>
         <div
           style={{
@@ -26,11 +28,16 @@ function App() {
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/confirm-sign-up" element={<ConfirmSignUp />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={
+              <RouteGuard>
+                <Profile/>
+              </RouteGuard>
+            } />
           </Routes>
           <BottomNavBar />
         </div>
       </Router>
+
     </AuthProvider>
   );
 }
