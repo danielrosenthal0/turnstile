@@ -41,3 +41,20 @@
 a {
   text-decoration: none;
 }
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--primary-font);
+}
+
+button,
+input,
+label {
+  border: none;
+  outline: none;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}

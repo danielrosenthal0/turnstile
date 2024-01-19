@@ -1,6 +1,7 @@
 .content {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: black;
   color: white;
   padding: 24px;
@@ -16,4 +17,11 @@
 a {
   text-decoration: none;
   color: white;
+  padding: 12px;
+}
+
+.pages {
+  display: flex;
+  font-family: var(--bold-font);
+  font-size: 20px;
 }

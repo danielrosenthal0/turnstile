@@ -8,8 +8,17 @@ const NavBar = () => {
       <Link to="/">
         <p className={styles.logo}>T</p>
       </Link>
-      <Link to="/sign-up"><div>Sign Up</div></Link>
-      <Link to="/sign-in"><div>Sign In</div></Link>
+      <div className={styles.pages}>
+        <Link to="/sign-up">
+          <div>Sign Up</div>
+        </Link>
+        <Link to="/sign-in">
+          <div>Sign In</div>
+        </Link>
+        <Link to="/profile">
+          <div>Profile</div>
+        </Link>
+      </div>
     </div>
   );
 };
