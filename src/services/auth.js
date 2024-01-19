@@ -27,6 +27,20 @@ export function signUp(username, email, password) {
 
 export function confirmSignUp(username, code) {
   // Confirm sign up implementation
+  return new Promise((resolve, reject) => {
+    const cognitoUser = new CognitoUser({
+      Username: username,
+      Pool: userPool,
+    })
+
+    cognitoUser.confirmRegistration(code, true, (error, result) => {
+      if (error) {
+        reject(error)
+        return
+      }
+      resolve(result)
+    })
+  })
 }
 
 export function signIn(username, password) {
