@@ -8,10 +8,16 @@
   src: url('./assets/fonts/SpaceMono-Bold.ttf');
 }
 
+@font-face {
+  font-family: 'italic font';
+  src: url('./assets/fonts/SpaceMono-Italic.ttf');
+}
+
 :root {
   --primary-color: #a46bea;
   --primary-font: 'primary font';
   --bold-font: 'bold font';
+  --italic-font: 'italic font'
 }
 
 ::-webkit-scrollbar {
