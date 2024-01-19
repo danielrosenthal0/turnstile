@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "../services/auth";
+import { getCurrentUser, signOut } from "../services/auth";
 
 const Profile = () => {
   const [user, setUser] = useState();
@@ -26,6 +26,7 @@ const Profile = () => {
         <p>Email: {user.email}</p>
         </div>
       )}
+      <button onClick={signOut}>Sign out</button>
     </div>
   )
 }
