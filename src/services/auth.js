@@ -85,4 +85,18 @@ export function getCurrentUser() {
 
 export function getSession() {
   // Get session implementation
+  const cognitoUser = userPool.getCurrentUser();
+  return new Promise((resolve, reject) => {
+    if (!cognitoUser) {
+      reject(new Error("No user found"));
+      return;
+    }
+    cognitoUser.getSession((error, session) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(session);
+    })
+  })
 }
