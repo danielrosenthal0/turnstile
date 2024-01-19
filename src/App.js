@@ -9,6 +9,8 @@ import ConfirmSignUp from './pages/ConfirmSignUp';
 import Profile from './pages/Profile';
 import { AuthProvider } from './services/AuthContext';
 import RouteGuard from './RouteGuard';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/confirm-sign-up" element={<ConfirmSignUp />} />
+            <Route path="/forgot-password" element={<ForgotPassword/>} />
+            <Route path="/reset-password" element={<ResetPassword/>}/>
             <Route path="/profile" element={
               <RouteGuard>
                 <Profile/>

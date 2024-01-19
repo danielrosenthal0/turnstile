@@ -27,7 +27,7 @@ const SignIn = () => {
   if (user) {
     return <Navigate to='/profile'/>
   }
-  
+
   return (
     <div className={styles.authContainer}>
       <h1 className={styles.authTitle}>Sign In</h1>
@@ -53,6 +53,7 @@ const SignIn = () => {
         <button type="submit">Sign in</button>
       </form>
       {error && <p>{error}</p>}
+      <Link to='/forgot-password' className={styles.switchButton}>Forgot your password?</Link>
       <Link to="/sign-up" className={styles.switchButton}>
         Don't have an account? Sign Up
       </Link>
