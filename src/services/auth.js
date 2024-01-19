@@ -81,6 +81,33 @@ export function signOut() {
 
 export function getCurrentUser() {
   // Get current user implementation
+  return new Promise((resolve, reject) => {
+    const cognitoUser = userPool.getCurrentUser();
+
+    if (!cognitoUser) {
+      reject(new Error("No user found"));
+      return;
+    }
+
+    cognitoUser.getSession((error, session) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      cognitoUser.getUserAttributes((error, attributes) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        const userData = attributes.reduce((account, attribute) => {
+          account[attribute.Name] = attribute.Value;
+          return account;
+        }, {});
+
+        resolve({...userData, username: cognitoUser.username});
+      })
+    })
+  })
 }
 
 export function getSession() {
