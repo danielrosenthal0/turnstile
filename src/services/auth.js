@@ -43,6 +43,23 @@ export function confirmSignUp(username, code) {
   })
 }
 
+export function resendConfirmationCode(username) {
+  return new Promise((resolve, reject) => {
+    const cognitoUser = new CognitoUser({
+      Username: username,
+      Pool: userPool
+    });
+
+    cognitoUser.resendConfirmationCode((error, result) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve(result);
+    });
+  })
+}
+
 export function signIn(username, password) {
   // Sign in implementation
   return new Promise ((resolve, reject) => {
