@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { confirmSignUp, resendConfirmationCode } from "../services/auth";
 import styles from './ConfirmSignUp.module.css';
+import { Link } from "react-router-dom";
 
 const ConfirmSignUp = () => {
   const [username, setUsername] = useState('');
@@ -36,7 +37,8 @@ const ConfirmSignUp = () => {
     return (
       <div className={styles.content}>
         <h2>Confirmation successful</h2>
-        <p>You can now log in</p>
+        <p>You can now sign in</p>
+        <Link to="/sign-in">Sign in</Link>
       </div>
     )
   }
