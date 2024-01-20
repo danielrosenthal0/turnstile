@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
 import { signUp } from '../services/auth';
 
@@ -8,26 +8,18 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  // const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    console.log('Signing up with', email, password);
     try {
       await signUp(username, email, password);
-      setSuccess(true);
+      navigate('/confirm-sign-up');
+      // setSuccess(true);
     } catch (error) {
       setError(error.message);
-    }
-
-    if (success) {
-      return (
-        <div>
-          <h2>Sign up successful</h2>
-          <p>Check your email for the confirmation code</p>
-        </div>
-      )
     }
   }
   return (

@@ -1,27 +1,28 @@
 import { useState } from "react"
 import { forgotPassword } from "../services/auth"
 import { Link } from "react-router-dom"
+import styles from './ForgotPassword.module.css';
 
 function ForgotPassword() {
-  const [username, setUsername] = useState("")
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState(false)
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError("")
+    e.preventDefault();
+    setError("");
 
     try {
-      await forgotPassword(username)
-      setSuccess(true)
+      await forgotPassword(username);
+      setSuccess(true);
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     }
   }
 
   if (success) {
     return (
-      <div>
+      <div className={styles.content}>
         <h2>Reset password</h2>
         <p>
           Check your email for the confirmation code to reset your password.
@@ -31,7 +32,7 @@ function ForgotPassword() {
   }
 
   return (
-    <div>
+    <div className={styles.content}>
       <h2>Forgot Password</h2>
       <form onSubmit={handleSubmit}>
         <input

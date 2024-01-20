@@ -1,7 +1,6 @@
 import React, { useContext, useState} from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import styles from './SignIn.module.css';
-import { signIn } from '../services/auth';
 import { AuthContext } from '../services/AuthContext';
 
 const SignIn = () => {
@@ -14,10 +13,8 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    console.log('Signing in with', password);
     try {
       await signIn(username, password);
-   
     } catch (error) {
       setError(error.message);
     }

@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { getCurrentUser, signOut } from "../services/auth";
+import { useContext } from "react";
 import { AuthContext } from "../services/AuthContext";
+import styles from './Profile.module.css';
 
 const Profile = () => {
   const { user, signOut } = useContext(AuthContext);
 
   return (
-    <div>
+    <div className={styles.content}>
       {user && (
         <div>
         <h2>Profile</h2>

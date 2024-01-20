@@ -1,29 +1,30 @@
-import { useState } from "react"
-import { confirmPassword } from "../services/auth"
-import { Link } from "react-router-dom"
+import { useState } from "react";
+import { confirmPassword } from "../services/auth";
+import { Link } from "react-router-dom";
+import styles from './ResetPassword.module.css';
 
 function ResetPassword() {
-  const [username, setUsername] = useState("")
-  const [confirmationCode, setConfirmationCode] = useState("")
-  const [newPassword, setNewPassword] = useState("")
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState(false)
+  const [username, setUsername] = useState("");
+  const [confirmationCode, setConfirmationCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError("")
+    e.preventDefault();
+    setError("");
 
     try {
-      await confirmPassword(username, confirmationCode, newPassword)
-      setSuccess(true)
+      await confirmPassword(username, confirmationCode, newPassword);
+      setSuccess(true);
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     }
   }
 
   if (success) {
     return (
-      <div>
+      <div className={styles.content}>
         <h2>Reset password</h2>
         <p>Your password has been reset successfully!</p>
         <Link to="/reset-password">Reset Password</Link>
@@ -32,9 +33,9 @@ function ResetPassword() {
   }
 
   return (
-    <div>
+    <div className={styles.content}>
       <h2>Reset Password</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.formContainer}>
         <input
           type="text"
           placeholder="Username"
