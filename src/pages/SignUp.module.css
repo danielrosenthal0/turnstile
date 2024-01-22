@@ -51,7 +51,8 @@ a {
 
 button,
 input,
-label {
+label,
+select {
   border: none;
   outline: none;
   font-size: 100%;
