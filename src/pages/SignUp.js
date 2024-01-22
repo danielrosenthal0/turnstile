@@ -7,6 +7,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [userType, setUserType] = useState('');
   const [error, setError] = useState('');
   // const [success, setSuccess] = useState('');
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const SignUp = () => {
     e.preventDefault();
     setError("");
     try {
-      await signUp(username, email, password);
+      await signUp(username, email, password, userType);
       navigate('/confirm-sign-up');
       // setSuccess(true);
     } catch (error) {
@@ -26,7 +27,19 @@ const SignUp = () => {
     <div className={styles.authContainer}>
       <h1 className={styles.authTitle}>Sign Up</h1>
       <form className={styles.formContainer} onSubmit={handleSubmit}>
-      <label htmlFor="username">Username</label>
+        <label htmlFor="userType">User Type</label>
+        <select
+          id="userType"
+          name="userType"
+          value={userType}
+          onChange={(e) => setUserType(e.target.value)}
+          required
+        >
+          <option value="">Select User Type</option>
+          <option value="EmergingArtist">Emerging Artist</option>
+          <option value="VerifiedArtist">Verified Artist</option>
+        </select>
+        <label htmlFor="username">Username</label>
         <input
           type="text"
           id="username"
