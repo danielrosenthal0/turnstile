@@ -17,14 +17,14 @@ const Home = () => {
       <div className={styles.areYou}>
         <h3>Are you...</h3>
         <div className={styles.circles}>
-          <Link to="/sign-up">
+          <Link to="/sign-up?userType=EmergingArtist">
             <div className={styles.circle}>
               <p>Someone who wants to be noticed?</p>
             </div>
           </Link>
 
           <h3>or...</h3>
-          <Link to="/sign-up">
+          <Link to="/sign-up?userType=VerifiedArtist">
             <div className={styles.circle}>
               <p>Looking for music to be submitted?</p>
             </div>

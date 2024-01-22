@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
 import { signUp } from '../services/auth';
 
@@ -11,6 +11,14 @@ const SignUp = () => {
   const [error, setError] = useState('');
   // const [success, setSuccess] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const userTypeParam = new URLSearchParams(location.search).get('userType');
+    if (userTypeParam) {
+      setUserType(userTypeParam);
+    }
+  }, [location.search]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
