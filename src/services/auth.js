@@ -14,7 +14,7 @@ export function signUp(username, email, password, userType) {
       password,
       [
         { Name: "email", Value: email },
-        { Name: "custom:UserType", value: userType },
+        { Name: "custom:UserType", Value: userType },
       ],
       null,
       (error, result) => {
