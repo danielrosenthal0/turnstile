@@ -78,7 +78,7 @@ export function signIn(username, password) {
 
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (result) => {
-        resolve(result)
+        resolve(result);
       },
       onFailure: (error) => {
         reject(error)
@@ -148,11 +148,13 @@ export function getCurrentUser() {
         reject(error);
         return;
       }
+      console.log('user session', session);
       cognitoUser.getUserAttributes((error, attributes) => {
         if (error) {
           reject(error);
           return;
         }
+        console.log('user attributes', attributes);
         const userData = attributes.reduce((account, attribute) => {
           account[attribute.Name] = attribute.Value;
           return account;
