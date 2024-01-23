@@ -1,14 +1,17 @@
 import React, { useContext, useState} from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import styles from './SignIn.module.css';
 import { AuthContext } from '../services/AuthContext';
+import { getCurrentUser } from '../services/auth';
 
 const SignIn = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const { user, signIn } = useContext(AuthContext);
+  const { user, signIn,  } = useContext(AuthContext);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +19,11 @@ const SignIn = () => {
     try {
       await signIn(username, password);
     } catch (error) {
-      setError(error.message);
+      if (error.code === "UserNotConfirmedException") {
+        navigate('/confirm-sign-up');
+      } else {
+        setError(error.message);
+      }
     }
 
   }

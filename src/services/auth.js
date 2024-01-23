@@ -6,13 +6,16 @@ const userPool = new CognitoUserPool({
   ClientId: cognitoConfig.ClientId,
 });
 
-export function signUp(username, email, password) {
+export function signUp(username, email, password, userType) {
   // Sign up implementation
   return new Promise((resolve, reject) => {
     userPool.signUp(
       username,
       password,
-      [{ Name: "email", Value: email}],
+      [
+        { Name: "email", Value: email },
+        { Name: "custom:UserType", Value: userType },
+      ],
       null,
       (error, result) => {
         if (error) {
@@ -21,7 +24,7 @@ export function signUp(username, email, password) {
         }
         resolve(result.user);
       }
-    )
+    );
   })
 }
 
@@ -75,7 +78,7 @@ export function signIn(username, password) {
 
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (result) => {
-        resolve(result)
+        resolve(result);
       },
       onFailure: (error) => {
         reject(error)
