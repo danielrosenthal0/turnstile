@@ -11,6 +11,7 @@ import { AuthProvider } from './services/AuthContext';
 import RouteGuard from './RouteGuard';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import Music from './pages/Music';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/confirm-sign-up" element={<ConfirmSignUp />} />
             <Route path="/forgot-password" element={<ForgotPassword/>} />
             <Route path="/reset-password" element={<ResetPassword/>}/>
+            <Route path="/music" element={<Music/>}/>
             <Route path="/profile" element={
               <RouteGuard>
                 <Profile/>
