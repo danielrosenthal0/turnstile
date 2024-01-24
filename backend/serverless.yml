@@ -1,0 +1,27 @@
+org: drosenthal
+app: turnstile
+service: music-upload
+frameworkVersion: '3'
+
+custom:
+  bucket: turnstile-music
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: us-east-1
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:PutObjectAcl
+          Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+
+functions:
+  upload:
+    handler: functions/upload.handler
+    environment:
+      BUCKET: ${self:custom.bucket}

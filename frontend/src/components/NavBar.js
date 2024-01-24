@@ -13,6 +13,9 @@ const NavBar = () => {
 
       {user ? (
         <div className={styles.pages}>
+          <Link to="/music">
+            <div>Music</div>
+          </Link>
           <Link to="/profile">
             <div>Profile</div>
           </Link>
