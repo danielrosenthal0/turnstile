@@ -1,31 +1,35 @@
-'use strict'
+'use strict';
 
 const AWS = require('aws-sdk');
-
+const parseMultipart = require('parse-multipart');
 const s3 = new AWS.S3();
 
-module.exports.handler = async (event, context, callback) => {
+const BUCKET = 'turnstile-music';
+
+module.exports.handler = async (event) => {
   try {
-    const s3Event = event.Records[0].s3;
-    const { bucket, object} = s3Event;
-
-    const params = {
-      Bucket: bucket.name,
-      Key: object.key,
-    };
-    const { Body } = await s3.getObject(params).promise();
-
-    console.log('File content', Body.toString());
+    const { filename, data } = extractFile(event);
+    await s3.putObject({ Bucket: BUCKET, Key: filename, ACL: 'public-read', Body: data }).promise();
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'File processed successfully'}),
+      body: JSON.stringify({ link: `https://${BUCKET}.s3.amazonaws.com/${filename}` }),
     };
-  } catch (error) {
-    console.error('Error processing file:', error);
+  } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal server error'}),
+      body: JSON.stringify({ message: err.stack }),
     };
   }
 };
+
+function extractFile(event) {
+  const boundary = parseMultipart.getBoundary(event.headers['content-type']);
+  const parts = parseMultipart.Parse(Buffer.from(event.body, 'base64'), boundary);
+  const [{ filename, data }] = parts;
+
+  return {
+    filename,
+    data,
+  };
+}

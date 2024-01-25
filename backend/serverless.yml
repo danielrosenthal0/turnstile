@@ -11,17 +11,18 @@ provider:
   runtime: nodejs18.x
   stage: dev
   region: us-east-1
-  iam:
-    role:
-      statements:
-        - Effect: Allow
-          Action:
-            - s3:PutObject
-            - s3:PutObjectAcl
-          Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:*
+      Resource: "*"
 
 functions:
   upload:
     handler: functions/upload.handler
+    events:
+      - http:
+          path: /file/upload
+          method: POST
     environment:
-      BUCKET: ${self:custom.bucket}
+      BUCKET: turnstile-music${opt:stage, 'dev'}

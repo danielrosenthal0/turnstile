@@ -9,6 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1542.0"
+    "aws-sdk": "^2.1542.0",
+    "axios": "^1.6.5",
+    "cors": "^2.8.5",
+    "parse-multipart": "^1.0.4"
+  },
+  "devDependencies": {
+    "serverless-aws-documentation": "^1.1.0"
   }
 }
