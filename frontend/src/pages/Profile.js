@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../services/AuthContext";
 import { S3 } from "aws-sdk";
 import styles from './Profile.module.css';
+import AudioWaveForm from "../components/AudioWaveForm";
 
 const getAccountLabel = (accountType) => {
   const typeLabels = {
@@ -40,26 +41,30 @@ const Profile = () => {
     <div className={styles.content}>
       {user && (
         <div>
-        <h2>Profile</h2>
-        <p>Username: {user.username}</p>
-        <p>Email: {user.email}</p>
-        <p>Account type: {getAccountLabel(user["custom:UserType"])}</p>
-        <h3>Uploaded music</h3>
-        {userFiles.length > 0 ? (
-          <ul>
-            {userFiles.map((file, index) => (
-              <li key={index}>{file.split('/').pop()}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>No uploaded music</p>
-        )}
-        
+          <h2>Profile</h2>
+          <p>Username: {user.username}</p>
+          <p>Email: {user.email}</p>
+          <p>Account type: {getAccountLabel(user["custom:UserType"])}</p>
+          <h3>Uploaded music</h3>
+          {userFiles.length > 0 ? (
+            <ul>
+              {userFiles.map((file, index) => (
+                <li key={index}>
+                  {file.split("/").pop()}
+                  {/* <AudioWaveForm
+                    audioUrl={`https://s3.amazonaws.com/turnstile-music/${file}`}
+                  /> */}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No uploaded music</p>
+          )}
         </div>
       )}
       <button onClick={signOut}>Sign out</button>
     </div>
-  )
+  );
 }
 
 export default Profile;
