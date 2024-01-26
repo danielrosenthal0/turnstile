@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk';
+
 
 const awsConfig = {
   region: 'us-east-1',
