@@ -22,7 +22,7 @@ const Profile = () => {
 
       const params = {
         Bucket: 'turnstile-music',
-        Prefix: `${user.username}/`,
+        Prefix: `${user.username}_`,
       };
 
       s3.listObjectsV2(params, (error, data) => {
