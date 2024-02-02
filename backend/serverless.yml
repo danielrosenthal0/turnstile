@@ -1,0 +1,17 @@
+org: drosenthal
+app: turnstile
+service: turnstile
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    REACT_APP_ACCESS_KEY: ${param:REACT_APP_ACCESS_KEY}
+    REACT_APP_CLIENT_ID: ${param:REACT_APP_CLIENT_ID}
+    REACT_APP_SECRET_ACCESS_KEY: ${param:REACT_APP_SECRET_ACCESS_KEY}
+    REACT_APP_USERPOOL_ID: ${param:REACT_APP_USERPOOL_ID}
+
+functions:
+  function1:
+    handler: index.handler
