@@ -6,12 +6,40 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
   environment:
-    REACT_APP_ACCESS_KEY: ${param:REACT_APP_ACCESS_KEY}
-    REACT_APP_CLIENT_ID: ${param:REACT_APP_CLIENT_ID}
-    REACT_APP_SECRET_ACCESS_KEY: ${param:REACT_APP_SECRET_ACCESS_KEY}
-    REACT_APP_USERPOOL_ID: ${param:REACT_APP_USERPOOL_ID}
+    ACCESS_KEY: ${param:ACCESS_KEY}
+    CLIENT_ID: ${param:CLIENT_ID}
+    SECRET_ACCESS_KEY: ${param:SECRET_ACCESS_KEY}
+    USER_POOL_ID: ${param:USER_POOL_ID}
+
 
 functions:
-  function1:
-    handler: index.handler
+  signUp:
+    handler: functions/signUp.handler
+    url: true
+    events:
+      - http:
+          path: signUp
+          method: post
+          cors:
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+    environment:
+      USER_POOL_ID: ${self:custom.UserPoolId.${self:custom.stage}}
+      CLIENT_ID: ${self:custom.ClientId.${self:custom.stage}}
+
+custom:
+  stage: ${opt:stage, 'dev'}
+  UserPoolId:
+    dev: ${self:provider.environment.USER_POOL_ID}
+    prod: ${self:provider.environment.USER_POOL_ID}
+  ClientId:
+    dev: ${self:provider.environment.CLIENT_ID}
+    prod: ${self:provider.environment.CLIENT_ID}

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
-import { signUp } from '../services/auth';
+
+// import { signUp } from '../services/auth';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -23,11 +24,32 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    const requestBody = {
+      username,
+      email,
+      password,
+      userType,
+    };
+
     try {
-      await signUp(username, email, password, userType);
-      navigate('/confirm-sign-up');
-      // setSuccess(true);
+      const response = await fetch('https://xxz6gaeaql.execute-api.us-east-1.amazonaws.com/dev/signUp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        navigate('/confirm-sign-up');
+      } else {
+        const data = await response.json();
+        setError(data.error || 'Signup failed');
+      }
+      
     } catch (error) {
+      console.error("Error:", error);
       setError(error.message);
     }
   }
