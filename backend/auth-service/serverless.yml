@@ -18,6 +18,7 @@ functions:
       - http:
           path: sign-up
           method: POST
+          cors: true
 
 plugins:
   - serverless-offline

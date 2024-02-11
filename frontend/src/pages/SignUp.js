@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
 import { signUp } from '../services/auth';
+import axios from 'axios';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -24,7 +25,12 @@ const SignUp = () => {
     e.preventDefault();
     setError("");
     try {
-      await signUp(username, email, password, userType);
+      await axios.post('https://zx9nccs9e8.execute-api.us-east-1.amazonaws.com/dev/sign-up', {
+        username,
+        email,
+        password,
+        userType
+      });
       navigate('/confirm-sign-up');
       // setSuccess(true);
     } catch (error) {
