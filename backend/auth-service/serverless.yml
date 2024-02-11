@@ -1,0 +1,30 @@
+service: auth-service
+app: turnstile
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${env:stage, 'dev'}
+  region: us-east-1
+  environment:
+    USER_POOL_ID: ${env:USER_POOL_ID}
+    CLIENT_ID: ${env:CLIENT_ID}
+
+functions:
+  signUp:
+    handler: handler.signUp
+    events:
+      - http:
+          path: sign-up
+          method: POST
+
+plugins:
+  - serverless-offline
+
+package:
+  exclude:
+    - node_modules/**
+    - .env
+
+useDotenv: true
