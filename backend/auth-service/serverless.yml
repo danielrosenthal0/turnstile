@@ -1,5 +1,6 @@
-service: auth-service
+org: drosenthal
 app: turnstile
+service: auth-service
 frameworkVersion: "3"
 
 provider:
