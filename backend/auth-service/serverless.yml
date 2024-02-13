@@ -5,12 +5,9 @@ frameworkVersion: "3"
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs14.x
   stage: ${env:stage, 'dev'}
   region: us-east-1
-  environment:
-    USER_POOL_ID: ${env:USER_POOL_ID}
-    CLIENT_ID: ${env:CLIENT_ID}
 
 functions:
   signUp:
@@ -21,12 +18,58 @@ functions:
           method: POST
           cors: true
 
-plugins:
-  - serverless-offline
+resources:
+  Resources:
+    TurnstilePoolDev:
+      Type: "AWS::Cognito::UserPool"
+      Properties:
+        UserPoolName: TurnstilePoolDev
+        Schema:
+          - Name: email
+            Required: true
+            Mutable: true
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6
+            
+    TurnstileClientDev:
+      Type: "AWS::Cognito::UserPoolClient"
+      Properties:
+        ClientName: TurnstilePoolClientDev
+        UserPoolId: !Ref TurnstilePoolDev
+        GenerateSecret: false
+
+
+    TurnstilePoolProd:
+      Type: "AWS::Cognito::UserPool"
+      Properties:
+        UserPoolName: TurnstilePoolProd
+        Schema:
+          - Name: email
+            Required: True
+            Mutable: true
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6
+            
+    TurnstileClientProd:
+      Type: "AWS::Cognito::UserPoolClient"
+      Properties:
+        ClientName: TurnstilePoolClientProd
+        UserPoolId: !Ref TurnstilePoolProd
+        GenerateSecret: false
+
+
+custom:
+  serverless-offline:
+    httpPort: 3000
 
 package:
   exclude:
-    - node_modules/**
     - .env
+    - node_modules/**
+
+plugins:
+  - serverless-offline
 
 useDotenv: true

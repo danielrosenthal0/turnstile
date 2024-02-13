@@ -1,13 +1,12 @@
 'use strict';
-import { CognitoUserPool, CognitoUserAttribute } from 'amazon-cognito-identity-js';
-import { REGION, USER_POOL_ID, CLIENT_ID } from './cognitoEnv';
-import dotenv from 'dotenv';
+const { CognitoUserPool, CognitoUserAttribute } = require('amazon-cognito-identity-js');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
 const poolData = {
-  UserPoolId: USER_POOL_ID,
-  ClientId: CLIENT_ID,
+  UserPoolId: process.env.USER_POOL_ID,
+  ClientId: process.env.CLIENT_ID,
 };
 
 const userPool = new CognitoUserPool(poolData);
@@ -36,4 +35,4 @@ async function signUp(event, context) {
   });
 };
 
-export const handler = signUp;
+exports.handler = signUp;
