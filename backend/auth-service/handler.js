@@ -1,12 +1,14 @@
 'use strict';
+
+const { REGION, USER_POOL_ID, CLIENT_ID } = require('./cognitoEnv');
 const { CognitoUserPool, CognitoUserAttribute } = require('amazon-cognito-identity-js');
 const dotenv = require('dotenv');
 
 dotenv.config();
 
 const poolData = {
-  UserPoolId: process.env.USER_POOL_ID,
-  ClientId: process.env.CLIENT_ID,
+  UserPoolId: USER_POOL_ID,
+  ClientId: CLIENT_ID,
 };
 
 const userPool = new CognitoUserPool(poolData);
@@ -29,7 +31,16 @@ async function signUp(event, context) {
           return reject(err);
         }
 
-        resolve(result);
+        resolve({
+          statusCode: 200,
+          body: JSON.stringify({
+            user: result,
+          }),
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Credentials': true,
+          },
+        });
       }
     );
   });

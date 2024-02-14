@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
+import { signUp } from '../services/auth';
 import axios from 'axios';
 
 const SignUp = () => {
@@ -20,13 +21,11 @@ const SignUp = () => {
     }
   }, [location.search]);
 
-  const apiHost = 'https://jb9gepy0pb.execute-api.us-east-1.amazonaws.com/dev';
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      await axios.post(`${apiHost}/sign-up`, {
+      await axios.post('https://jb9gepy0pb.execute-api.us-east-1.amazonaws.com/dev/sign-up', {
         username,
         email,
         password,
