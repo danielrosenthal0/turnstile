@@ -20,7 +20,7 @@ functions:
           path: sign-up
           method: POST
           cors:
-            origin: '*'
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
             headers:
               - Content-Type
               - X-Amz-Date
@@ -34,7 +34,7 @@ functions:
           path: sign-up
           method: options
           cors:
-            origin: '*'
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
             headers:
               - Content-Type
               - X-Amz-Date

@@ -16,12 +16,20 @@ const poolData = {
 const userPool = new CognitoUserPool(poolData);
 
 async function signUp(event, context) {
+  const allowedOrigins = ['https://dev.d5quvta5fj0rx.amplifyapp.com', 'http://localhost:3000'];
+  const origin = event.headers.origin;
+  if (!allowedOrigins.includes(origin)) {
+    return {
+      statusCode: 403,
+      body: 'Forbidden',
+    };
+  }
   // Handle OPTIONS request
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': origin,
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id',
         'Access-Control-Allow-Methods': 'POST,OPTIONS',
@@ -50,7 +58,7 @@ async function signUp(event, context) {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': origin,
         'Access-Control-Allow-Credentials': true,
       },
       body: JSON.stringify({
