@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "amazon-cognito-identity-js": "^6.3.7",
+    "dotenv": "^16.4.4"
+  },
+  "devDependencies": {
+    "serverless-offline": "^13.3.3"
+  }
+}

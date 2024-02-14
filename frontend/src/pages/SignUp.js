@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './SignUp.module.css';
-import { signUp } from '../services/auth';
+import axios from 'axios';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -9,7 +9,6 @@ const SignUp = () => {
   const [username, setUsername] = useState('');
   const [userType, setUserType] = useState('');
   const [error, setError] = useState('');
-  // const [success, setSuccess] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,13 +19,17 @@ const SignUp = () => {
     }
   }, [location.search]);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setError("");
+    const data = { username, email, password, userType };
     try {
-      await signUp(username, email, password, userType);
+      await axios.post('https://jb9gepy0pb.execute-api.us-east-1.amazonaws.com/dev/sign-up', data, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
       navigate('/confirm-sign-up');
-      // setSuccess(true);
     } catch (error) {
       setError(error.message);
     }

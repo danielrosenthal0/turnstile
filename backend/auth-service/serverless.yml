@@ -1,0 +1,55 @@
+org: drosenthal
+service: auth-service
+app: turnstile
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${env:stage, 'dev'}
+  region: us-east-1
+  environment:
+    USER_POOL_ID: ${env:USER_POOL_ID}
+    CLIENT_ID: ${env:CLIENT_ID}
+
+functions:
+  signUp:
+    handler: handler.signUp
+    events:
+      - http:
+          path: sign-up
+          method: POST
+          cors:
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+      - http:
+          path: sign-up
+          method: options
+          cors:
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+
+plugins:
+  - serverless-offline
+
+package:
+  exclude:
+    - .env
+
+useDotenv: true

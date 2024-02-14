@@ -1,0 +1,23 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-turnstile-dev-143219-authRole",
+      "UnauthRoleArn": "arn:aws:iam::325850113305:role/amplify-turnstile-dev-143219-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::325850113305:role/amplify-turnstile-dev-143219-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-turnstile-dev-143219-deployment",
+      "UnauthRoleName": "amplify-turnstile-dev-143219-unauthRole",
+      "StackName": "amplify-turnstile-dev-143219",
+      "StackId": "arn:aws:cloudformation:us-east-1:325850113305:stack/amplify-turnstile-dev-143219/c5cdeec0-cb6f-11ee-b4fc-0ab62fa2dd07",
+      "AmplifyAppId": "d5quvta5fj0rx"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d5quvta5fj0rx",
+          "type": "manual"
+        }
+      }
+    }
+  }
+}
