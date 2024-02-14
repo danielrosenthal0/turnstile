@@ -21,7 +21,7 @@ async function signUp(event, context) {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*', // This is the important line
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id',
         'Access-Control-Allow-Methods': 'POST,OPTIONS',
@@ -29,7 +29,6 @@ async function signUp(event, context) {
     };
   }
 
-  console.log(event.body);
   try {
     const { username, email, password, userType } = JSON.parse(event.body);
 
@@ -51,7 +50,7 @@ async function signUp(event, context) {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*', // This is the important line
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
       body: JSON.stringify({
@@ -68,7 +67,7 @@ async function signUp(event, context) {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*', // This is the important line
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
       },
     };

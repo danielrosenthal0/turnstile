@@ -23,7 +23,6 @@ const SignUp = () => {
     event.preventDefault();
     setError("");
     const data = { username, email, password, userType };
-    console.log(data);
     try {
       await axios.post('https://jb9gepy0pb.execute-api.us-east-1.amazonaws.com/dev/sign-up', data, {
         headers: {
@@ -31,7 +30,6 @@ const SignUp = () => {
         }
       });
       navigate('/confirm-sign-up');
-      // setSuccess(true);
     } catch (error) {
       setError(error.message);
     }
