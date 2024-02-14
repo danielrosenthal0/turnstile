@@ -5,7 +5,7 @@ frameworkVersion: "3"
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs20.x
   stage: ${env:stage, 'dev'}
   region: us-east-1
   environment:
@@ -20,9 +20,30 @@ functions:
           path: sign-up
           method: POST
           cors:
-            methods: ['POST']
-            origin: ['*']
-            headers: ['Access-Control-Allow-Origin']
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+      - http:
+          path: sign-up
+          method: options
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
 
 plugins:
   - serverless-offline
@@ -30,6 +51,5 @@ plugins:
 package:
   exclude:
     - .env
-    - node_modules/**
 
 useDotenv: true
