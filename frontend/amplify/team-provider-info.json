@@ -19,5 +19,26 @@
         }
       }
     }
+  },
+  "prod": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-turnstile-prod-95114-authRole",
+      "UnauthRoleArn": "arn:aws:iam::325850113305:role/amplify-turnstile-prod-95114-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::325850113305:role/amplify-turnstile-prod-95114-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-turnstile-prod-95114-deployment",
+      "UnauthRoleName": "amplify-turnstile-prod-95114-unauthRole",
+      "StackName": "amplify-turnstile-prod-95114",
+      "StackId": "arn:aws:cloudformation:us-east-1:325850113305:stack/amplify-turnstile-prod-95114/abaa2930-cc11-11ee-8e8b-1256fed8dfed",
+      "AmplifyAppId": "d5quvta5fj0rx"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d5quvta5fj0rx",
+          "type": "manual"
+        }
+      }
+    }
   }
 }
