@@ -8,9 +8,7 @@ provider:
   runtime: nodejs20.x
   stage: ${env:stage, 'dev'}
   region: us-east-1
-  environment:
-    USER_POOL_ID: ${env:USER_POOL_ID}
-    CLIENT_ID: ${env:CLIENT_ID}
+  environment: ${file(./cognitoEnv.${opt:stage, 'dev'}.js):getEnvVars}
 
 functions:
   signUp:
