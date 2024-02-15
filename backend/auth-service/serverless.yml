@@ -8,9 +8,7 @@ provider:
   runtime: nodejs20.x
   stage: ${env:stage, 'dev'}
   region: us-east-1
-  environment:
-    USER_POOL_ID: ${env:USER_POOL_ID}
-    CLIENT_ID: ${env:CLIENT_ID}
+  environment: ${file(./cognitoEnv.${opt:stage, 'dev'}.js):getEnvVars}
 
 functions:
   signUp:
@@ -20,7 +18,7 @@ functions:
           path: sign-up
           method: POST
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
             headers:
               - Content-Type
               - X-Amz-Date
@@ -34,7 +32,7 @@ functions:
           path: sign-up
           method: options
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
             headers:
               - Content-Type
               - X-Amz-Date

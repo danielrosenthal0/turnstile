@@ -16,7 +16,7 @@ const poolData = {
 const userPool = new CognitoUserPool(poolData);
 
 async function signUp(event, context) {
-  const allowedOrigins = ['https://dev.d5quvta5fj0rx.amplifyapp.com', 'http://localhost:3000'];
+  const allowedOrigins = ['https://dev.d5quvta5fj0rx.amplifyapp.com', 'https://prod.d5quvta5fj0rx.amplifyapp.com', 'http://localhost:3000'];
   const origin = event.headers.origin;
   if (!allowedOrigins.includes(origin)) {
     return {
@@ -75,7 +75,7 @@ async function signUp(event, context) {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': origin,
         'Access-Control-Allow-Credentials': true,
       },
     };

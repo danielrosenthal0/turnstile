@@ -12,6 +12,8 @@ const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const userTypeParam = new URLSearchParams(location.search).get('userType');
     if (userTypeParam) {
@@ -24,7 +26,7 @@ const SignUp = () => {
     setError("");
     const data = { username, email, password, userType };
     try {
-      await axios.post('https://jb9gepy0pb.execute-api.us-east-1.amazonaws.com/dev/sign-up', data, {
+      await axios.post(apiUrl, data, {
         headers: {
           'Content-Type': 'application/json',
         }
