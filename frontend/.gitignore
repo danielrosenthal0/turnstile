@@ -25,6 +25,8 @@ yarn-error.log*
 src/assets
 
 .env
+.env.development
+.env.production
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
@@ -48,5 +50,4 @@ amplifytools.xcconfig
 **.sample
 #amplify-do-not-edit-end
 
-.env.development
-.env.production
+
