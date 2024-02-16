@@ -12,7 +12,7 @@ provider:
 
 functions:
   signUp:
-    handler: handler.signUp
+    handler: handlers/signUp.handler
     events:
       - http:
           path: sign-up
@@ -42,7 +42,69 @@ functions:
               - X-Amz-User-Agent
               - X-Amzn-Trace-Id
             allowCredentials: true
-
+  confirmSignUp:
+    handler: handlers/confirmSignUp.handler
+    events:
+      - http:
+          path: confirm-sign-up
+          method: POST
+          cors:
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+      - http:
+          path: confirm-sign-up
+          method: options
+          cors:
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+  resendConfirmationCode:
+    handler: handlers/resendConfirmationCode.handler
+    events:
+      - http:
+          path: resend-confirmation-code
+          method: POST
+          cors:
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+      - http:
+          path: resend-confirmation-code
+          method: options
+          cors:
+            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+      
 plugins:
   - serverless-offline
 
