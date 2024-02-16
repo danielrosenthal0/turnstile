@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { confirmSignUp, resendConfirmationCode } from "../services/auth";
 import styles from './ConfirmSignUp.module.css';
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const ConfirmSignUp = () => {
   const [username, setUsername] = useState('');
@@ -9,12 +9,19 @@ const ConfirmSignUp = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  const confirmUrl = process.env.REACT_APP_CONFIRM_SIGN_UP_URL;
+  const resendUrl = process.env.REACT_APP_RESEND_CONFIRMATION_CODE_URL;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
+    const data = { username, code };
     try {
-      await confirmSignUp(username, code);
+      await axios.post(confirmUrl, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
       setSuccess(true);
     } catch (error) {
       setError(error.message);
@@ -22,10 +29,19 @@ const ConfirmSignUp = () => {
   }
 
   const handleResendCode = async (e) => {
+    e.preventDefault();
     setError('');
-
+    if (!username) {
+      setError('Username is required');
+      return;
+    }
+    const data = { username };
     try {
-      await resendConfirmationCode(username);
+      await axios.post(resendUrl, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
       setSuccess(false);
       setError('Confirmation code resent. Check your email.');
     } catch (error) {

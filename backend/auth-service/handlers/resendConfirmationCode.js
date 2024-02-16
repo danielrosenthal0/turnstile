@@ -1,6 +1,6 @@
 'use strict';
 
-const { CognitoUserPool, CognitoUserAttribute } = require('amazon-cognito-identity-js');
+const { CognitoUser, CognitoUserPool } = require("amazon-cognito-identity-js");
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -15,7 +15,7 @@ const poolData = {
 
 const userPool = new CognitoUserPool(poolData);
 
-async function signUp(event, context) {
+async function handler(event, context) {
   const allowedOrigins = ['https://dev.d5quvta5fj0rx.amplifyapp.com', 'https://prod.d5quvta5fj0rx.amplifyapp.com', 'http://localhost:3000'];
   const origin = event.headers.origin;
   if (!allowedOrigins.includes(origin)) {
@@ -23,7 +23,7 @@ async function signUp(event, context) {
       statusCode: 403,
       body: 'Forbidden',
     };
-  }
+  };
   // Handle OPTIONS request
   if (event.httpMethod === 'OPTIONS') {
     return {
@@ -35,20 +35,18 @@ async function signUp(event, context) {
         'Access-Control-Allow-Methods': 'POST,OPTIONS',
       },
     };
-  }
-
+  };
   try {
-    const { username, email, password, userType } = JSON.parse(event.body);
-
-    const attributes = [
-      new CognitoUserAttribute({ Name: 'email', Value: email }),
-      new CognitoUserAttribute({ Name: 'custom:UserType', Value: userType }),
-    ];
-
+    const { username } = JSON.parse(event.body);
     const result = await new Promise((resolve, reject) => {
-      userPool.signUp(username, password, attributes, [], (err, result) => {
-        if (err) {
-          reject(err);
+      const cognitoUser = new CognitoUser({
+        Username: username,
+        Pool: userPool
+      });
+
+      cognitoUser.resendConfirmationCode((error, result) => {
+        if (error) {
+          reject(error);
         } else {
           resolve(result);
         }
@@ -61,13 +59,10 @@ async function signUp(event, context) {
         'Access-Control-Allow-Origin': origin,
         'Access-Control-Allow-Credentials': true,
       },
-      body: JSON.stringify({
-        user: result,
-      }),
-      
+      body: JSON.stringify(result),
     };
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return {
       statusCode: 500,
       body: JSON.stringify({
@@ -77,11 +72,9 @@ async function signUp(event, context) {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': origin,
         'Access-Control-Allow-Credentials': true,
-      },
-    };
+      }
+    }
   }
 }
 
-module.exports = {
-  signUp,
-};
+module.exports = { handler };
