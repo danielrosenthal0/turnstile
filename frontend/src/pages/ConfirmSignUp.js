@@ -31,6 +31,10 @@ const ConfirmSignUp = () => {
   const handleResendCode = async (e) => {
     e.preventDefault();
     setError('');
+    if (!username) {
+      setError('Username is required');
+      return;
+    }
     const data = { username };
     try {
       await axios.post(resendUrl, data, {
