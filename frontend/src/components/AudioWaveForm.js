@@ -1,35 +1,26 @@
-import { useRef, useEffect } from 'react';
-import WaveSurfer from 'wavesurfer.js';
+import React, { useRef } from 'react';
+import { useWavesurfer } from '@wavesurfer/react';
 
-const AudioWaveForm = ({ audioUrl}) => {
-  const waveformRef = useRef();
+const AudioWaveForm = ({ audioUrl }) => {
+  const containerRef = useRef(null);
 
-  useEffect(() => {
-    const wavesurfer = WaveSurfer.create({
-      container: waveformRef.current,
-      waveColor: 'violet',
-      progressColor: 'purple',
-    });
+  useWavesurfer({
+    container: containerRef,
+    waveColor: 'violet',
+    progressColor: 'purple',
+    mediaControls: true,
+    normalize: false,
+    height: 75,
+    url: audioUrl,
+  });
 
-    wavesurfer.on('error', (error) => {
-      console.error('Error loading audio:', error);
-    });
 
-    try {
-      wavesurfer.load(audioUrl);
-    } catch (error) {
-      console.error('Error loading audio:', error);
-    }
-  
-
-    return () => {
-      wavesurfer.destroy();
-    }
-  }, [audioUrl]);
 
   return (
-    <div ref={waveformRef} />
-  )
+    <div>
+      <div ref={containerRef} />
+    </div>
+  );
 }
 
 export default AudioWaveForm;
