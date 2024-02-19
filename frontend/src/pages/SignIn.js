@@ -29,7 +29,8 @@ const SignIn = () => {
       // console.log(user);
       setUser(user);
     } catch (error) {
-      if (error.code === "UserNotConfirmedException") {
+      // console.log(error);
+      if (error.response && error.response.data.error.code === 'UserNotConfirmedException') {
         navigate('/confirm-sign-up');
       } else {
         setError(error.message);

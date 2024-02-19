@@ -84,7 +84,10 @@ async function handler(event, context) {
     return {
       statusCode: 500,
       body: JSON.stringify({
-        error: error.message,
+        error: {
+          message: error.message,
+          code: error.code,
+        },
       }),
       headers: {
         'Content-Type': 'application/json',
