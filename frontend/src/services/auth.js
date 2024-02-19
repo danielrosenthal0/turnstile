@@ -1,91 +1,10 @@
-import { CognitoUserPool, CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import { CognitoUserPool, CognitoUser,  } from "amazon-cognito-identity-js";
 import { cognitoConfig } from "./cognitoConfig";
 
 const userPool = new CognitoUserPool({
   UserPoolId: cognitoConfig.UserPoolId,
   ClientId: cognitoConfig.ClientId,
 });
-
-// export function signUp(username, email, password, userType) {
-//   // Sign up implementation
-//   return new Promise((resolve, reject) => {
-//     userPool.signUp(
-//       username,
-//       password,
-//       [
-//         { Name: "email", Value: email },
-//         { Name: "custom:UserType", Value: userType },
-//       ],
-//       null,
-//       (error, result) => {
-//         if (error) {
-//           reject(error);
-//           return;
-//         }
-//         resolve(result.user);
-//       }
-//     );
-//   })
-// }
-
-// export function confirmSignUp(username, code) {
-//   // Confirm sign up implementation
-//   return new Promise((resolve, reject) => {
-//     const cognitoUser = new CognitoUser({
-//       Username: username,
-//       Pool: userPool,
-//     })
-
-//     cognitoUser.confirmRegistration(code, true, (error, result) => {
-//       if (error) {
-//         reject(error)
-//         return
-//       }
-//       resolve(result)
-//     })
-//   })
-// }
-
-// export function resendConfirmationCode(username) {
-//   return new Promise((resolve, reject) => {
-//     const cognitoUser = new CognitoUser({
-//       Username: username,
-//       Pool: userPool
-//     });
-
-//     cognitoUser.resendConfirmationCode((error, result) => {
-//       if (error) {
-//         reject(error);
-//         return;
-//       }
-//       resolve(result);
-//     });
-//   })
-// }
-
-export function signIn(username, password) {
-  // Sign in implementation
-  return new Promise ((resolve, reject) => {
-    const authenticationDetails = new AuthenticationDetails({
-      Username: username,
-      Password: password,
-    })
-
-    const cognitoUser = new CognitoUser({
-      Username: username,
-      Pool: userPool,
-    })
-
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: (result) => {
-        resolve(result);
-      },
-      onFailure: (error) => {
-        reject(error)
-      }
-    })
-  })
-}
 
 export function forgotPassword(username) {
   // Forgot password implementation
