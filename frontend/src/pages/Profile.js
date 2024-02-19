@@ -44,7 +44,7 @@ const Profile = () => {
           <h2>Profile</h2>
           <p>Username: {user.username}</p>
           <p>Email: {user.email}</p>
-          <p>Account type: {getAccountLabel(user["custom:UserType"])}</p>
+          <p>Account type: {getAccountLabel(user.userType)}</p>
           <h3>Uploaded music</h3>
           {userFiles.length > 0 ? (
             <ul>

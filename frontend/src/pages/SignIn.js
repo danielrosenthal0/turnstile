@@ -2,7 +2,7 @@ import React, { useContext, useState} from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import styles from './SignIn.module.css';
 import { AuthContext } from '../services/AuthContext';
-import { getCurrentUser } from '../services/auth';
+import axios from 'axios';
 
 const SignIn = () => {
   const [password, setPassword] = useState('');
@@ -10,22 +10,32 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const { user, signIn,  } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
 
+  const signInUrl = process.env.REACT_APP_SIGN_IN_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    const data = { username, password };
+    // console.log(data);
     try {
-      await signIn(username, password);
+      const response = await axios.post(signInUrl, data, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      const { user } = response.data;
+      // console.log(user);
+      setUser(user);
     } catch (error) {
-      if (error.code === "UserNotConfirmedException") {
+      // console.log(error);
+      if (error.response && error.response.data.error.code === 'UserNotConfirmedException') {
         navigate('/confirm-sign-up');
       } else {
         setError(error.message);
       }
     }
-
   }
 
   if (user) {
