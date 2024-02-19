@@ -21,6 +21,7 @@ const Music = () => {
         Key: `${user.username}_${file.name}`,
         Body: file,
         ACL: 'public-read',
+        ContentType: 'audio/mpeg'
       };
 
       await s3.upload(params).promise();

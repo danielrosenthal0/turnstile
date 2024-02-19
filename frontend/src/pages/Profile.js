@@ -20,18 +20,29 @@ const Profile = () => {
   useEffect(() => {
     if (user) {
       const s3 = new S3();
-
+  
       const params = {
         Bucket: 'turnstile-music',
         Prefix: `${user.username}_`,
       };
-
-      s3.listObjectsV2(params, (error, data) => {
+  
+      s3.listObjectsV2(params, async (error, data) => {
         if (error) {
           console.error('Error listing user files:', error);
         } else {
           const files = data.Contents.map(item => item.Key);
           setUserFiles(files);
+  
+          // Log the content type of each file
+          // for (const file of files) {
+          //   const headParams = {
+          //     Bucket: 'turnstile-music',
+          //     Key: file,
+          //   };
+  
+          //   const headData = await s3.headObject(headParams).promise();
+          //   console.log(`Content type of ${file}: ${headData.ContentType}`);
+          // }
         }
       })
     }
@@ -51,9 +62,9 @@ const Profile = () => {
               {userFiles.map((file, index) => (
                 <li key={index}>
                   {file.split("/").pop()}
-                  {/* <AudioWaveForm
-                    audioUrl={`https://s3.amazonaws.com/turnstile-music/${file}`}
-                  /> */}
+                  <AudioWaveForm
+                    audioUrl={`https://s3.amazonaws.com/turnstile-music/${encodeURIComponent(file)}`}
+                  />
                 </li>
               ))}
             </ul>
