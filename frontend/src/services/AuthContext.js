@@ -7,29 +7,36 @@ const AuthContext = createContext();
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  const currentUserUrl = process.env.REACT_APP_GET_CURRENT_USER_URL;
   
 
   const getCurrentUser = async () => {
     try {
       const user = await auth.getCurrentUser();
       setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
     } catch (error) {
       console.log(error);
       setUser(null);
+      localStorage.removeItem("user");
     }
   };
 
   useEffect(() => {
-    getCurrentUser()
+    const userFromStorage = localStorage.getItem("user");
+    if (userFromStorage) {
+      setUser(JSON.parse(userFromStorage));
+      setIsLoading(false);
+    } else {
+      getCurrentUser()
       .then(() => setIsLoading(false))
       .catch(() => setIsLoading(false));
+    }
   }, []);
 
   const signOut = async () => {
     await auth.signOut();
     setUser(null);
+    localStorage.removeItem('user');
   }
 
   const authValue = {
