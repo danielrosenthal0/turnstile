@@ -59,6 +59,7 @@ async function handler(event, context) {
             if (err) {
               // Handle error
             } else {
+              console.log(attributes);
               const email = attributes.find(attr => attr.Name === 'email').Value;
               const userType = attributes.find(attr => attr.Name === 'custom:UserType').Value;
               resolve({ username, email, userType, tokens: result });
