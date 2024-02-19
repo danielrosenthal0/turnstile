@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import * as auth from "./auth";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -7,9 +8,17 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const currentUserUrl = process.env.REACT_APP_GET_CURRENT_USER_URL;
+  const signInUrl = process.env.REACT_APP_SIGN_IN_URL;
+
   const getCurrentUser = async () => {
     try {
       const user = await auth.getCurrentUser();
+      // const user = await axios.post(currentUserUrl, {
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   }
+      // }); //replace w api call
       setUser(user);
     } catch (error) {
       console.log(error);
@@ -24,8 +33,14 @@ function AuthProvider({ children }) {
   }, []);
 
   const signIn = async (username, password) => {
+    const data = { username, password };
     // debugger;
-    await auth.signIn(username, password);
+    await auth.signIn(username, password); //replace w api call
+    // await axios.post(signInUrl, data, {
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   }
+    // });
     await getCurrentUser();
   }
 
@@ -38,7 +53,8 @@ function AuthProvider({ children }) {
     user,
     isLoading,
     signIn,
-    signOut
+    signOut,
+    setUser,
   }
 
   return (
