@@ -55,6 +55,12 @@ export function signOut() {
 export function getCurrentUser() {
   // Get current user implementation
   return new Promise((resolve, reject) => {
+    const userFromStorage = localStorage.getItem("user");
+    if (userFromStorage) {
+      resolve(JSON.parse(userFromStorage));
+      return;
+    }
+
     const cognitoUser = userPool.getCurrentUser();
 
     if (!cognitoUser) {
@@ -77,6 +83,7 @@ export function getCurrentUser() {
           return account;
         }, {});
 
+        localStorage.setItem("user", JSON.stringify(userData));
         resolve({...userData, username: cognitoUser.username});
       })
     })

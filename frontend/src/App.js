@@ -16,7 +16,6 @@ import Music from './pages/Music';
 function App() {
   return (
     <AuthProvider>
- 
       <Router>
         <div
           style={{

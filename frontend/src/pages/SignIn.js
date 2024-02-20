@@ -27,7 +27,9 @@ const SignIn = () => {
       });
       const { user } = response.data;
       // console.log(user);
+
       setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
     } catch (error) {
       // console.log(error);
       if (error.response && error.response.data.error.code === 'UserNotConfirmedException') {

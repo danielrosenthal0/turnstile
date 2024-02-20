@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 
 function RouteGuard ({children}) {
   const { user, isLoading } = useContext(AuthContext);
+  console.log(user);
 
   if (isLoading) {
     return <></>

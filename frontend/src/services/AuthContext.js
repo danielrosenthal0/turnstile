@@ -9,27 +9,27 @@ function AuthProvider({ children }) {
   const [isLoading, setIsLoading] = useState(true);
   
 
-  const getCurrentUser = async () => {
-    try {
-      const user = await auth.getCurrentUser();
-      setUser(user);
-      localStorage.setItem("user", JSON.stringify(user));
-    } catch (error) {
-      console.log(error);
-      setUser(null);
-      localStorage.removeItem("user");
-    }
-  };
+  // const getCurrentUser = async () => {
+  //   try {
+  //     const user = await auth.getCurrentUser();
+  //     console.log(user);
+  //     setUser(user);
+  //     localStorage.setItem("user", JSON.stringify(user));
+  //   } catch (error) {
+  //     console.log(error);
+  //     setUser(null);
+  //     localStorage.removeItem("user");
+  //   } finally {
+  //     setIsLoading(false);
+
+  //   }
+  // };
 
   useEffect(() => {
     const userFromStorage = localStorage.getItem("user");
     if (userFromStorage) {
       setUser(JSON.parse(userFromStorage));
       setIsLoading(false);
-    } else {
-      getCurrentUser()
-      .then(() => setIsLoading(false))
-      .catch(() => setIsLoading(false));
     }
   }, []);
 
