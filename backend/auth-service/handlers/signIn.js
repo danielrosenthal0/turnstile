@@ -16,7 +16,7 @@ const poolData = {
 const userPool = new CognitoUserPool(poolData);
 
 async function handler(event, context) {
-  const allowedOrigins = ['https://dev.d5quvta5fj0rx.amplifyapp.com', 'https://prod.d5quvta5fj0rx.amplifyapp.com', 'http://localhost:3000'];
+  const allowedOrigins = ['https://turnstile-lemon.vercel.app', 'http://localhost:3000', 'https://turnstile-7hq8sfy5d-danielrosenthal0.vercel.app'];
   const origin = event.headers.origin;
   if (!allowedOrigins.includes(origin)) {
     return {

@@ -32,17 +32,6 @@ const Profile = () => {
         } else {
           const files = data.Contents.map(item => item.Key);
           setUserFiles(files);
-  
-          // Log the content type of each file
-          // for (const file of files) {
-          //   const headParams = {
-          //     Bucket: 'turnstile-music',
-          //     Key: file,
-          //   };
-  
-          //   const headData = await s3.headObject(headParams).promise();
-          //   console.log(`Content type of ${file}: ${headData.ContentType}`);
-          // }
         }
       })
     }
@@ -63,7 +52,7 @@ const Profile = () => {
                 <li key={index}>
                   {file.split("/").pop()}
                   <AudioWaveForm
-                    audioUrl={`https://s3.amazonaws.com/turnstile-music/${encodeURIComponent(file)}`}
+                    audioUrl={`https://s3.amazonaws.com/turnstile-music/${file}`}
                   />
                 </li>
               ))}

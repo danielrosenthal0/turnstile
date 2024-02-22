@@ -12,7 +12,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const apiUrl = process.env.REACT_APP_API_URL;
+  const apiUrl = process.env.REACT_APP_SIGN_UP_URL;
 
   useEffect(() => {
     const userTypeParam = new URLSearchParams(location.search).get('userType');

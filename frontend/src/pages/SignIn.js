@@ -18,6 +18,7 @@ const SignIn = () => {
     e.preventDefault();
     setError("");
     const data = { username, password };
+    // console.log(signInUrl);
     // console.log(data);
     try {
       const response = await axios.post(signInUrl, data, {
@@ -31,7 +32,7 @@ const SignIn = () => {
       setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       if (error.response && error.response.data.error.code === 'UserNotConfirmedException') {
         navigate('/confirm-sign-up');
       } else {
