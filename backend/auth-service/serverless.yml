@@ -10,6 +10,9 @@ provider:
   region: us-east-1
   environment: ${file(./cognitoEnv.${opt:stage, 'dev'}.js):getEnvVars}
 
+custom:
+  origins: 'https://turnstile-lemon.vercel.app/,http://localhost:3000,https://turnstile-7hq8sfy5d-danielrosenthal0.vercel.app'
+
 functions:
   signUp:
     handler: handlers/signUp.handler
@@ -18,7 +21,7 @@ functions:
           path: sign-up
           method: POST
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -32,7 +35,7 @@ functions:
           path: sign-up
           method: options
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -49,7 +52,7 @@ functions:
           path: confirm-sign-up
           method: POST
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -63,7 +66,7 @@ functions:
           path: confirm-sign-up
           method: options
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -80,7 +83,7 @@ functions:
           path: resend-confirmation-code
           method: POST
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -94,7 +97,7 @@ functions:
           path: resend-confirmation-code
           method: options
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -111,7 +114,7 @@ functions:
           path: sign-in
           method: POST
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -125,7 +128,7 @@ functions:
           path: sign-in
           method: options
           cors:
-            origin: 'https://dev.d5quvta5fj0rx.amplifyapp.com,https://prod.d5quvta5fj0rx.amplifyapp.com,http://localhost:3000'
+            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
