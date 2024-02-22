@@ -18,8 +18,8 @@ const SignIn = () => {
     e.preventDefault();
     setError("");
     const data = { username, password };
-    console.log(signInUrl);
-    console.log(data);
+    // console.log(signInUrl);
+    // console.log(data);
     try {
       const response = await axios.post(signInUrl, data, {
         headers: {
@@ -27,7 +27,7 @@ const SignIn = () => {
         }
       });
       const { user } = response.data;
-      console.log(user);
+      // console.log(user);
 
       setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
