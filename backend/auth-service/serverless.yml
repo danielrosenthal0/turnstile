@@ -11,7 +11,7 @@ provider:
   environment: ${file(./cognitoEnv.${opt:stage, 'dev'}.js):getEnvVars}
 
 custom:
-  origins: 'https://turnstile-lemon.vercel.app/,http://localhost:3000,https://turnstile-7hq8sfy5d-danielrosenthal0.vercel.app'
+  origins: 'https://turnstilemusic.vercel.app/,http://localhost:3000'
 
 functions:
   signUp:
