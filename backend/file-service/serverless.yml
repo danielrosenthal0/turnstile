@@ -87,6 +87,24 @@ functions:
               - X-Amz-User-Agent
               - X-Amzn-Trace-Id
             allowCredentials: true
+  getPresignedUrl:
+    handler: handlers/getPresignedUrl.handler
+    events:
+      - http:
+          path: get-presigned-url
+          method: GET
+          cors:
+            origin: ${self:custom.origins}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+      
 
 plugins:
   - serverless-offline
