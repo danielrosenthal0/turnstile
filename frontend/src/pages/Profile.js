@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../services/AuthContext";
-import { S3 } from "aws-sdk";
+// import { S3 } from "aws-sdk";
+import axios from "axios";
 import styles from './Profile.module.css';
 import AudioWaveForm from "../components/AudioWaveForm";
 
@@ -19,21 +20,18 @@ const Profile = () => {
 
   useEffect(() => {
     if (user) {
-      const s3 = new S3();
-  
-      const params = {
-        Bucket: 'turnstile-music',
-        Prefix: `${user.username}_`,
-      };
-  
-      s3.listObjectsV2(params, async (error, data) => {
-        if (error) {
-          console.error('Error listing user files:', error);
-        } else {
-          const files = data.Contents.map(item => item.Key);
-          setUserFiles(files);
+      const fetchUserFiles = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_FETCH_FILES_URL}?username=${user.username}`
+          );
+          setUserFiles(response.data.files);
+        } catch (error) {
+          console.error("Error fetching user files:", error);
         }
-      })
+      };
+
+      fetchUserFiles();
     }
   }, [user]);
 

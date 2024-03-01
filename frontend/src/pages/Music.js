@@ -1,30 +1,29 @@
 import { useRef, useContext } from 'react';
-import { S3 } from 'aws-sdk';
-import AWS from 'aws-sdk';
-import { awsConfig } from '../services/awsConfig';
 import { AuthContext } from '../services/AuthContext';
+import axios from 'axios';
 import styles from './Music.module.css';
-
-AWS.config.update(awsConfig);
 
 const Music = () => {
   const fileInputRef = useRef();
-  const s3 = new S3();
   const { user } = useContext(AuthContext);
 
   const handleFileUpload = async () => {
     const file = fileInputRef.current.files[0];
-
+    if (!file) {
+      console.error('No file selected');
+      return;
+    }
+    if (!user || !user.username) {
+      console.error('User not defined');
+      return;
+    }
+    const data = new FormData();
+    data.append('file', file);
+    data.append('username', user.username);
+    console.log(data);
+  
     try {
-      const params = {
-        Bucket: 'turnstile-music',
-        Key: `${user.username}_${file.name}`,
-        Body: file,
-        ACL: 'public-read',
-        ContentType: 'audio/mpeg'
-      };
-
-      await s3.upload(params).promise();
+      await axios.post(process.env.REACT_APP_UPLOAD_FILE_URL, data);
       console.log('File uploaded successfully');
     } catch (error) {
       console.error('Error uploading file:', error);
