@@ -17,18 +17,31 @@ const Music = () => {
       console.error('User not defined');
       return;
     }
-    const data = new FormData();
-    data.append('file', file);
-    data.append('username', user.username);
-    console.log(data);
   
     try {
-      await axios.post(process.env.REACT_APP_UPLOAD_FILE_URL, data);
+      // Request a pre-signed URL from your Lambda function
+      const response = await axios.get(process.env.REACT_APP_GET_PRESIGNED_URL, {
+        params: {
+          name: `${user.username}_${file.name}`,
+          type: file.type,
+        },
+      });
+  
+      const { url } = response.data;
+  
+      // Upload the file to S3 using the pre-signed URL
+      await axios.put(url, file, {
+        headers: {
+          'Content-Type': file.type,
+          'x-amz-acl': 'public-read',
+        },
+      });
+  
       console.log('File uploaded successfully');
     } catch (error) {
       console.error('Error uploading file:', error);
     }
-  }
+  };
 
   return (
     <div className={styles.content}>

@@ -15,6 +15,7 @@ provider:
         - s3:ListBucket
         - s3:GetObject
         - s3:PutObject
+        - s3:PutObjectAcl
       Resource: 
         - arn:aws:s3:::turnstile-music-dev
         - arn:aws:s3:::turnstile-music-dev/*
@@ -93,6 +94,20 @@ functions:
       - http:
           path: get-presigned-url
           method: GET
+          cors:
+            origin: ${self:custom.origins}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+      - http:
+          path: get-presigned-url
+          method: options
           cors:
             origin: ${self:custom.origins}
             headers:

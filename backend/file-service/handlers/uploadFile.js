@@ -28,7 +28,7 @@ module.exports.handler = async (event) => {
         "Access-Control-Allow-Origin": origin,
         "Access-Control-Allow-Credentials": true,
         "Access-Control-Allow-Headers":
-          "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id",
+        "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id",
         "Access-Control-Allow-Methods": "POST,OPTIONS",
       },
     };
