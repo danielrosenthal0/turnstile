@@ -19,7 +19,7 @@ const Music = () => {
     }
   
     try {
-      // Request a pre-signed URL from your Lambda function
+      // Request a pre-signed URL
       const response = await axios.get(process.env.REACT_APP_GET_PRESIGNED_URL, {
         params: {
           name: `${user.username}_${file.name}`,
