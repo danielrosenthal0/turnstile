@@ -22,9 +22,6 @@ provider:
         - arn:aws:s3:::turnstile-music
         - arn:aws:s3:::turnstile-music/*
 
-custom:
-  origins: 'https://turnstilemusic.vercel.app/,http://localhost:3000'
-
 functions:
   uploadFile:
     handler: handlers/uploadFile.handler
@@ -33,7 +30,6 @@ functions:
           path: upload-file
           method: POST
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -47,7 +43,6 @@ functions:
           path: upload-file
           method: options
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -64,7 +59,6 @@ functions:
           path: fetch-files
           method: GET
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -78,7 +72,6 @@ functions:
           path: fetch-files
           method: options
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -95,7 +88,6 @@ functions:
           path: get-presigned-url
           method: GET
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -109,7 +101,6 @@ functions:
           path: get-presigned-url
           method: options
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date

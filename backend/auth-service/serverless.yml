@@ -10,8 +10,6 @@ provider:
   region: us-east-1
   environment: ${file(./cognitoEnv.${opt:stage, 'dev'}.js):getEnvVars}
 
-custom:
-  origins: 'https://turnstilemusic.vercel.app/,http://localhost:3000'
 
 functions:
   signUp:
@@ -21,7 +19,6 @@ functions:
           path: sign-up
           method: POST
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -35,7 +32,6 @@ functions:
           path: sign-up
           method: options
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -52,7 +48,6 @@ functions:
           path: confirm-sign-up
           method: POST
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -66,7 +61,6 @@ functions:
           path: confirm-sign-up
           method: options
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -83,7 +77,6 @@ functions:
           path: resend-confirmation-code
           method: POST
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -97,7 +90,6 @@ functions:
           path: resend-confirmation-code
           method: options
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -114,7 +106,6 @@ functions:
           path: sign-in
           method: POST
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date
@@ -128,7 +119,6 @@ functions:
           path: sign-in
           method: options
           cors:
-            origin: ${self:custom.origins}
             headers:
               - Content-Type
               - X-Amz-Date

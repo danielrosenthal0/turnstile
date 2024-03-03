@@ -16,12 +16,27 @@ const poolData = {
 const userPool = new CognitoUserPool(poolData);
 
 async function handler(event, context) {
-  const allowedOrigins = ['https://turnstilemusic.vercel.app/,http://localhost:3000'];
+ // const allowedOrigins = ['https://turnstilemusic.vercel.app', 'http://localhost:3000'];
+  const allowedOrigins = [
+    /^https:\/\/turnstile*\.vercel\.app$/,
+    "http://localhost:3000",
+  ];
   const origin = event.headers.origin;
-  if (!allowedOrigins.includes(origin)) {
+  // if (!allowedOrigins.includes(origin)) {
+  //   return {
+  //     statusCode: 403,
+  //     body: 'Forbidden',
+  //   };
+  // }
+
+  if (
+    !allowedOrigins.some((o) =>
+      o instanceof RegExp ? o.test(origin) : o === origin
+    )
+  ) {
     return {
       statusCode: 403,
-      body: 'Forbidden',
+      body: "Forbidden",
     };
   }
   // Handle OPTIONS request
