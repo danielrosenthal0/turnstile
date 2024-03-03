@@ -44,7 +44,7 @@ const Profile = () => {
           <p>Email: {user.email}</p>
           <p>Account type: {getAccountLabel(user.userType)}</p>
           <h3>Uploaded music</h3>
-          {userFiles.length > 0 ? (
+          {userFiles && userFiles.length > 0 ? (
             <ul>
               {userFiles.map((file, index) => (
                 <li key={index}>
