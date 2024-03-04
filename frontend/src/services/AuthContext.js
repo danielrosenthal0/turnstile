@@ -12,8 +12,8 @@ function AuthProvider({ children }) {
     const userFromStorage = localStorage.getItem("user");
     if (userFromStorage) {
       setUser(JSON.parse(userFromStorage));
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }, []);
 
   const signOut = async () => {

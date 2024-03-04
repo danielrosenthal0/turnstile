@@ -1,5 +1,5 @@
 import React, { useContext, useState} from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './SignIn.module.css';
 import { AuthContext } from '../services/AuthContext';
 import axios from 'axios';
@@ -10,7 +10,7 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
 
   const signInUrl = process.env.REACT_APP_SIGN_IN_URL;
 
@@ -18,8 +18,6 @@ const SignIn = () => {
     e.preventDefault();
     setError("");
     const data = { username, password };
-    // console.log(signInUrl);
-    // console.log(data);
     try {
       const response = await axios.post(signInUrl, data, {
         headers: {
@@ -27,10 +25,10 @@ const SignIn = () => {
         }
       });
       const { user } = response.data;
-      // console.log(user);
 
       setUser(user);
       localStorage.setItem('user', JSON.stringify(user));
+      navigate('/profile');
     } catch (error) {
       console.log(error);
       if (error.response && error.response.data.error.code === 'UserNotConfirmedException') {
@@ -39,10 +37,6 @@ const SignIn = () => {
         setError(error.message);
       }
     }
-  }
-
-  if (user) {
-    return <Navigate to='/profile'/>
   }
 
   return (
