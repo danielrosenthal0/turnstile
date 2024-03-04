@@ -38,31 +38,29 @@ const Profile = () => {
   return (
     <div className={styles.content}>
       {user && (
-        <div>
+        <div className={styles.profileHeader}>
           <div className={styles.title}>
-            <span className={styles.titleText}>Profile</span>
+            <span className={styles.titleText}>{user.username}</span>
           </div>
-          <p>Username: {user.username}</p>
-          <p>Email: {user.email}</p>
-          <p>Account type: {getAccountLabel(user.userType)}</p>
-          <h3>Uploaded music</h3>
-          {userFiles && userFiles.length > 0 ? (
-            <div>
-              {userFiles.map((file, index) => (
-                <div key={index}>
-                  {file.split("/").pop()}
-                  <AudioWaveForm
-                    audioUrl={`https://s3.amazonaws.com/turnstile-music/${file}`}
-                  />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p>No uploaded music</p>
-          )}
+          <p className={styles.accountType}>{getAccountLabel(user.userType)}</p>
         </div>
       )}
-      <button onClick={signOut}>Sign out</button>
+      <h3 className={styles.musicTitle}>Uploaded music</h3>
+      <div className={styles.musicList}>
+        {userFiles && userFiles.length > 0 ? (
+          userFiles.map((file, index) => (
+            <div key={index} className={styles.musicItem}>
+              <p className={styles.musicName}>{file.split("/").pop()}</p>
+              <AudioWaveForm
+                audioUrl={`https://s3.amazonaws.com/turnstile-music/${file}`}
+              />
+            </div>
+          ))
+        ) : (
+          <p className={styles.noMusic}>No uploaded music</p>
+        )}
+      </div>
+      <button className={styles.signOutButton} onClick={signOut}>Sign out</button>
     </div>
   );
 };

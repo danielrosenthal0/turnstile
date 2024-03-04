@@ -48,3 +48,15 @@ a {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.searchBar {
+  width: 200px;
+  padding: 5px;
+  margin-right: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 2px;
+  font-family: var(--primary-font);
+  font-size: 20px;
+  font-weight: 100;
+}
