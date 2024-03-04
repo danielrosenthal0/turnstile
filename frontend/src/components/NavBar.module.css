@@ -12,6 +12,10 @@
 .logo {
   font-family: var(--bold-font);
   font-size: 100px;
+  background: radial-gradient(circle, white, var(--primary-color) 40%, white 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 a {
@@ -24,4 +28,35 @@ a {
   display: flex;
   font-family: var(--bold-font);
   font-size: 20px;
+}
+
+.link {
+  font-family: var(--bold-font);
+  font-weight: 300;
+  font-size: 20px;
+  min-height: 100%;
+
+}
+
+.linkText {
+  transition: background-color 1s, color 1s;
+}
+
+.linkText:hover {
+  background: linear-gradient(to right, var(--primary-color), white 40%, var(--primary-color) 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.searchBar {
+  width: 200px;
+  padding: 5px;
+  margin-right: 10px;
+  background-color: white;
+  color: black;
+  border-radius: 2px;
+  font-family: var(--primary-font);
+  font-size: 20px;
+  font-weight: 100;
 }

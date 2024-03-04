@@ -24,7 +24,9 @@ function ForgotPassword() {
 
   return (
     <div className={styles.content}>
-      <h2>Forgot Password</h2>
+      <div className={styles.title}>
+        <span className={styles.titleText}>Confirm sign up</span>
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -35,7 +37,7 @@ function ForgotPassword() {
         <button type="submit">Submit</button>
       </form>
       {error && <p>{error}</p>}
-      <Link to="/sign-in">Sign In</Link>
+      <button onClick={() => navigate('/sign-in')}>Sign In</button>
     </div>
   )
 }

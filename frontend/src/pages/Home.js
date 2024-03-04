@@ -6,15 +6,17 @@ const Home = () => {
   return (
     <div className={styles.content}>
       <div className={styles.titleContent}>
-        <div className={styles.title}>Turnstile</div>
+        <div className={styles.title}>
+          <span className={styles.titleText}>Turnstile</span>
+        </div>
         <div className={styles.subtitle}>
           Connecting producers, artists, and DJ's
         </div>
       </div>
       <div className={styles.intro}>
-        <div>Welcome to the internet's best place to get discovered</div>
+        <div>Turnstile is the internet's best place to get discovered</div>
       </div>
-      <div className={styles.areYou}>
+      {/* <div className={styles.areYou}>
         <h3>Are you...</h3>
         <div className={styles.circles}>
           <Link to="/sign-up?userType=EmergingArtist">
@@ -30,7 +32,7 @@ const Home = () => {
             </div>
           </Link>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

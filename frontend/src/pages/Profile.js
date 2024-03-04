@@ -2,17 +2,17 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../services/AuthContext";
 // import { S3 } from "aws-sdk";
 import axios from "axios";
-import styles from './Profile.module.css';
+import styles from "./Profile.module.css";
 import AudioWaveForm from "../components/AudioWaveForm";
 
 const getAccountLabel = (accountType) => {
   const typeLabels = {
     EmergingArtist: "Emerging Artist",
-    VerifiedArtist: "Verified Artist"
+    VerifiedArtist: "Verified Artist",
   };
 
   return typeLabels[accountType] || accountType;
-}
+};
 
 const Profile = () => {
   const { user, signOut } = useContext(AuthContext);
@@ -38,31 +38,31 @@ const Profile = () => {
   return (
     <div className={styles.content}>
       {user && (
-        <div>
-          <h2>Profile</h2>
-          <p>Username: {user.username}</p>
-          <p>Email: {user.email}</p>
-          <p>Account type: {getAccountLabel(user.userType)}</p>
-          <h3>Uploaded music</h3>
-          {userFiles && userFiles.length > 0 ? (
-            <ul>
-              {userFiles.map((file, index) => (
-                <li key={index}>
-                  {file.split("/").pop()}
-                  <AudioWaveForm
-                    audioUrl={`https://s3.amazonaws.com/turnstile-music/${file}`}
-                  />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No uploaded music</p>
-          )}
+        <div className={styles.profileHeader}>
+          <div className={styles.title}>
+            <span className={styles.titleText}>{user.username}</span>
+          </div>
+          <p className={styles.accountType}>{getAccountLabel(user.userType)}</p>
         </div>
       )}
-      <button onClick={signOut}>Sign out</button>
+      <h3 className={styles.musicTitle}>Uploaded music</h3>
+      <div className={styles.musicList}>
+        {userFiles && userFiles.length > 0 ? (
+          userFiles.map((file, index) => (
+            <div key={index} className={styles.musicItem}>
+              <p className={styles.musicName}>{file.split("/").pop()}</p>
+              <AudioWaveForm
+                audioUrl={`https://s3.amazonaws.com/turnstile-music/${file}`}
+              />
+            </div>
+          ))
+        ) : (
+          <p className={styles.noMusic}>No uploaded music</p>
+        )}
+      </div>
+      <button className={styles.signOutButton} onClick={signOut}>Sign out</button>
     </div>
   );
-}
+};
 
 export default Profile;

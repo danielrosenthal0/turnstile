@@ -6,7 +6,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  transition: background-color 0.45s, color 0.45s;
+  transition: background-color 0.8s, color 0.8s;
 }
 
 .content:hover {
@@ -19,10 +19,25 @@
   font-weight: 600;
   font-size: 100px;
   min-height: 100%;
-  /* max-height: 50px; */
   margin: 24px;
   padding: 24px;
 }
+
+.titleText {
+  background: linear-gradient(to right, var(--primary-color), white 40%, var(--primary-color) 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.content:hover .titleText {
+  background: linear-gradient(to right, black, var(--primary-color) 40%, black 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
 
 .subtitle {
   font-family: var(--primary-font);
@@ -34,7 +49,8 @@
 
 .intro {
   font-family: var(--primary-font);
-  font-weight: 800;
+  font-weight: 300;
+  font-size: 40px;
 }
 
 .areYou {

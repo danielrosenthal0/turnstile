@@ -61,7 +61,9 @@ const ConfirmSignUp = () => {
 
   return (
     <div className={styles.content}>
-      <h2>Confirm sign up</h2>
+      <div className={styles.title}>
+        <span className={styles.titleText}>Confirm sign up</span>
+      </div>
       <form onSubmit={handleSubmit} className={styles.formContainer}>
         <input 
           type="text"

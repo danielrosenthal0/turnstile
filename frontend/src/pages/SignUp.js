@@ -82,9 +82,10 @@ const SignUp = () => {
         <button type="submit">Sign up</button>
       </form>
       {error && <p>{error}</p>}
-      <Link to="/sign-in" className={styles.switchButton}>
-        Already have an account? Sign In
-      </Link>
+      <div className={styles.switchButton}>
+        Already have an account?
+        <button onClick={() => navigate('/sign-in')}>Sign In</button>
+      </div>
     </div>
   );
 };
