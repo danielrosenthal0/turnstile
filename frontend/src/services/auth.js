@@ -44,13 +44,13 @@ export function confirmPassword(username, code, newPassword) {
   })
 }
 
-export function signOut() {
-  // Sign out implementation
-  const cognitoUser = userPool.getCurrentUser();
-  if (cognitoUser ) {
-    cognitoUser.signOut();
-  }
-}
+// export function signOut() {
+//   // Sign out implementation
+//   const cognitoUser = userPool.getCurrentUser();
+//   if (cognitoUser ) {
+//     cognitoUser.signOut();
+//   }
+// }
 
 export function getCurrentUser() {
   // Get current user implementation

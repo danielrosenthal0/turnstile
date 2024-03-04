@@ -138,6 +138,37 @@ functions:
               - X-Amz-User-Agent
               - X-Amzn-Trace-Id
             allowCredentials: true
+  signOut:
+    handler: handlers/signOut.handler
+    events:
+      - http:
+          path: sign-out
+          method: POST
+          cors:
+            origin: ${self:custom.origins}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
+      - http:
+          path: sign-out
+          method: options
+          cors:
+            origin: ${self:custom.origins}
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+            allowCredentials: true
 
 plugins:
   - serverless-offline

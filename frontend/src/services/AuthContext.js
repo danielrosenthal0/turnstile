@@ -16,16 +16,16 @@ function AuthProvider({ children }) {
     }
   }, []);
 
-  const signOut = async () => {
-    await auth.signOut();
-    setUser(null);
-    localStorage.removeItem('user');
-  }
+  // const signOut = async () => {
+  //   await auth.signOut();
+  //   setUser(null);
+  //   localStorage.removeItem('user');
+  // }
 
   const authValue = {
     user,
     isLoading,
-    signOut,
+    // signOut,
     setUser,
   }
 

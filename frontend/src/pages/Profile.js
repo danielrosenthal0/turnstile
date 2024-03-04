@@ -4,6 +4,7 @@ import { AuthContext } from "../services/AuthContext";
 import axios from "axios";
 import styles from './Profile.module.css';
 import AudioWaveForm from "../components/AudioWaveForm";
+import { useNavigate } from "react-router-dom";
 
 const getAccountLabel = (accountType) => {
   const typeLabels = {
@@ -15,8 +16,9 @@ const getAccountLabel = (accountType) => {
 }
 
 const Profile = () => {
-  const { user, signOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [userFiles, setUserFiles] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -34,6 +36,16 @@ const Profile = () => {
       fetchUserFiles();
     }
   }, [user]);
+
+  const signOut = async () => {
+    try {
+      await axios.post(`${process.env.REACT_APP_SIGN_OUT_URL}`);
+      localStorage.removeItem('user');
+      navigate('/sign-in');
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  }
 
   return (
     <div className={styles.content}>
