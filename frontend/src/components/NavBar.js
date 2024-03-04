@@ -14,19 +14,27 @@ const NavBar = () => {
       {user ? (
         <div className={styles.pages}>
           <Link to="/music">
-            <div>Music</div>
+            <div className={styles.link}>
+              <span className={styles.linkText}>Upload Music</span>
+            </div>
           </Link>
           <Link to="/profile">
-            <div>Profile</div>
+            <div className={styles.link}>
+              <span className={styles.linkText}>Profile</span>
+            </div>
           </Link>
         </div>
       ) : (
         <div className={styles.pages}>
           <Link to="/sign-up">
-            <div>Sign Up</div>
+            <div className={styles.link}>
+              <span className={styles.linkText}>Sign Up</span>
+            </div>
           </Link>
           <Link to="/sign-in">
-            <div>Sign In</div>
+            <div className={styles.link}>
+              <span className={styles.linkText}>Sign In</span>
+            </div>
           </Link>
         </div>
       )}

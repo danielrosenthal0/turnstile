@@ -2,17 +2,17 @@ import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../services/AuthContext";
 // import { S3 } from "aws-sdk";
 import axios from "axios";
-import styles from './Profile.module.css';
+import styles from "./Profile.module.css";
 import AudioWaveForm from "../components/AudioWaveForm";
 
 const getAccountLabel = (accountType) => {
   const typeLabels = {
     EmergingArtist: "Emerging Artist",
-    VerifiedArtist: "Verified Artist"
+    VerifiedArtist: "Verified Artist",
   };
 
   return typeLabels[accountType] || accountType;
-}
+};
 
 const Profile = () => {
   const { user, signOut } = useContext(AuthContext);
@@ -39,22 +39,24 @@ const Profile = () => {
     <div className={styles.content}>
       {user && (
         <div>
-          <h2>Profile</h2>
+          <div className={styles.title}>
+            <span className={styles.titleText}>Profile</span>
+          </div>
           <p>Username: {user.username}</p>
           <p>Email: {user.email}</p>
           <p>Account type: {getAccountLabel(user.userType)}</p>
           <h3>Uploaded music</h3>
           {userFiles && userFiles.length > 0 ? (
-            <ul>
+            <div>
               {userFiles.map((file, index) => (
-                <li key={index}>
+                <div key={index}>
                   {file.split("/").pop()}
                   <AudioWaveForm
                     audioUrl={`https://s3.amazonaws.com/turnstile-music/${file}`}
                   />
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           ) : (
             <p>No uploaded music</p>
           )}
@@ -63,6 +65,6 @@ const Profile = () => {
       <button onClick={signOut}>Sign out</button>
     </div>
   );
-}
+};
 
 export default Profile;

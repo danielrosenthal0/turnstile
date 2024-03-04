@@ -18,3 +18,17 @@ select {
   font-family: inherit;
   vertical-align: baseline;
 }
+
+.title {
+  font-family: var(--bold-font);
+  font-weight: 300;
+  font-size: 50px;
+  min-height: 100%;
+}
+
+.titleText {
+  background: linear-gradient(to right, var(--primary-color), white 40%, var(--primary-color) 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
