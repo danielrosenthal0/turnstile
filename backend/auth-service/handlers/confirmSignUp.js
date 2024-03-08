@@ -16,7 +16,7 @@ const poolData = {
 const userPool = new CognitoUserPool(poolData);
 
 async function handler(event, context) {
-  const allowedOrigins = ['https://turnstilemusic.vercel.app/,http://localhost:3000'];
+  const allowedOrigins = ['https://turnstilemusic.vercel.app', 'http://localhost:3000'];
   const origin = event.headers.origin;
   if (!allowedOrigins.includes(origin)) {
     return {
@@ -58,6 +58,8 @@ async function handler(event, context) {
       headers: {
         'Access-Control-Allow-Origin': origin,
         'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id',
+        'Access-Control-Allow-Methods': 'POST,OPTIONS',
       },
       body: JSON.stringify(result),
     }

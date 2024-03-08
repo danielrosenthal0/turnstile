@@ -10,8 +10,6 @@ const s3 = new AWS.S3();
 module.exports.handler = async (event) => {
   const allowedOrigins = ['https://turnstilemusic.vercel.app', 'http://localhost:3000'];
   const origin = event.headers.origin;
-  console.log('Headers:', event.headers);
-  console.log('Origin:', event.headers.origin);
   if (!allowedOrigins.includes(origin)) {
     return {
       statusCode: 403,
@@ -44,9 +42,7 @@ module.exports.handler = async (event) => {
   };
 
   try {
-    console.log("params:", params);
     const url = await s3.getSignedUrlPromise('putObject', params);
-    console.log('Pre-signed URL:', url);
     return {
       statusCode: 200,
       body: JSON.stringify({ url }),

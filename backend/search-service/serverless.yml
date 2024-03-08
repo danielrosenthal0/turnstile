@@ -13,6 +13,8 @@ provider:
       Action:
         - dynamodb:Query
         - dynamodb:Scan
+      Resource:
+        - "arn:aws:dynamodb:us-east-1:*:table/${self:provider.stage}-search"
 
 functions:
   search:

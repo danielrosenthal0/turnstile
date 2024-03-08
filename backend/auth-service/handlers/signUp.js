@@ -2,6 +2,10 @@
 
 const { CognitoUserPool, CognitoUserAttribute } = require('amazon-cognito-identity-js');
 const dotenv = require('dotenv');
+const AWS = require('aws-sdk');
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
+const stage = process.env.stage;
+const tableName = `${stage}-search`;
 
 dotenv.config();
 
@@ -16,8 +20,7 @@ const poolData = {
 const userPool = new CognitoUserPool(poolData);
 
 async function handler(event, context) {
-  const allowedOrigins = ['https://turnstilemusic.vercel.app/,http://localhost:3000'];
-  const origin = event.headers.origin;
+  const allowedOrigins = ['https://turnstilemusic.vercel.app', 'http://localhost:3000'];  const origin = event.headers.origin;
   if (!allowedOrigins.includes(origin)) {
     return {
       statusCode: 403,
@@ -55,11 +58,25 @@ async function handler(event, context) {
       });
     });
 
+    const params = {
+      TableName: tableName,
+      Item: {
+        id: result.userSub,
+        type: 'user',
+        username,
+        email,
+        userType,
+      },
+    };
+    await dynamoDb.put(params).promise();
+
     return {
       statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': origin,
         'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id',
+        'Access-Control-Allow-Methods': 'POST,OPTIONS',
       },
       body: JSON.stringify({
         user: result,

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "amazon-cognito-identity-js": "^6.3.7",
+    "aws-sdk": "^2.1573.0",
     "dotenv": "^16.4.4"
   },
   "devDependencies": {

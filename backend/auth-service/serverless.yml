@@ -9,6 +9,15 @@ provider:
   stage: ${env:stage, 'dev'}
   region: us-east-1
   environment: ${file(./cognitoEnv.${opt:stage, 'dev'}.js):getEnvVars}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource:
+        - "arn:aws:dynamodb:us-east-1:*:table/${self:provider.stage}-search"
 
 custom:
   origins: 'https://turnstilemusic.vercel.app/,http://localhost:3000'
