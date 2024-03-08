@@ -1,5 +1,9 @@
 const AWS = require('aws-sdk');
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const { AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY } = process.env;
+const stage = process.env.stage;
+const tableName = `${stage}-search`;
+
 AWS.config.update({
   accessKeyId: AWS_ACCESS_KEY,
   secretAccessKey: AWS_SECRET_ACCESS_KEY,
@@ -43,6 +47,20 @@ module.exports.handler = async (event) => {
 
   try {
     const url = await s3.getSignedUrlPromise('putObject', params);
+
+    //write to s3
+    const dynamoDbParams = {
+      TableName: tableName,
+      Item: {
+        id: name,
+        type: 'audio',
+        filename: name,
+        contentType: type,
+      },
+    };
+
+    await dynamoDb.put(dynamoDbParams).promise();
+
     return {
       statusCode: 200,
       body: JSON.stringify({ url }),
